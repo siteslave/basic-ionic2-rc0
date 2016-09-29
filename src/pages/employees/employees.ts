@@ -4,9 +4,8 @@ import { NavController, LoadingController } from 'ionic-angular';
 import { DetailPage } from '../detail/detail'
 import { Api } from '../../providers/api'
 
-interface IUsers {
+export interface IUser {
   name: string,
-  username: string,
   email: string
 }
 
@@ -16,7 +15,7 @@ interface IUsers {
 })
 export class EmployeesPage implements OnInit {
 
-  users: Array<any>
+  users: Array<IUser>
   
   constructor(public navCtrl: NavController, private api: Api, private loadingCtrl: LoadingController) {}
 
@@ -32,12 +31,12 @@ export class EmployeesPage implements OnInit {
     
     this.api.getList()
       .then(data => {
-        this.users = <Array<any>>data;
+        this.users = <Array<IUser>>data;
         loader.dismiss();
       });
   }
 
-  getDetail(user) {
+  getDetail(user: IUser) {
     this.navCtrl.push(DetailPage, { user: user });
   }
 
